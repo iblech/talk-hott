@@ -3,6 +3,7 @@
 \usepackage[english]{babel}
 
 \usepackage{mathtools}
+\usepackage{booktabs}
 \usepackage{ragged2e}
 \usepackage{multicol}
 \usepackage{tabto}
@@ -12,9 +13,27 @@
 \setlength\parskip{\medskipamount}
 \setlength\parindent{0pt}
 
+\renewcommand{\U}{\mathcal{U}}
 \newcommand{\RR}{\mathbb{R}}
-\newcommand{\Set}{\mathrm{Set}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\fst}{\mathsf{fst}}
+\newcommand{\snd}{\mathsf{snd}}
+\newcommand{\refl}{\mathsf{refl}}
+\renewcommand{\succ}{\mathsf{succ}}
+\newcommand{\seg}{\mathsf{seg}}
+\newcommand{\base}{\mathsf{base}}
+\newcommand{\lloop}{\mathsf{loop}}
+\newcommand{\surf}{\mathsf{surf}}
+\newcommand{\merid}{\mathsf{merid}}
+\newcommand{\N}{\mathsf{N}}
+\renewcommand{\S}{\mathsf{S}}
+\newcommand{\IsContr}{\mathsf{IsContr}}
+\newcommand{\IsProp}{\mathsf{IsProp}}
+\newcommand{\IsSet}{\mathsf{IsSet}}
+\newcommand{\fib}{\mathsf{fib}}
 \newcommand{\defeq}{\vcentcolon=}
+\newcommand{\defeqv}{\vcentcolon\equiv}
 
 \title{Homotopy type theory}
 \author[Arbeitsseminar Geometrie/Topologie]{\vspace{-1em}\\\includegraphics[scale=0.3]{torus.png} \\[0.5em] Ingo Blechschmidt \\[-0.3em] {\scriptsize November 25th, 2014}}
@@ -47,7 +66,7 @@
 
 \newcommand{\hil}[1]{{\usebeamercolor[fg]{item}{\textbf{#1}}}}
 
-\newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\#3\end{center}}
+\newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\\small#3\end{center}}
 %\newcommand{\imageslide}[3]{\frame{\frametitle{#1}\img{#2}{#3}}}
 
 \setbeameroption{show notes}
@@ -158,12 +177,21 @@
     \item\justifying In ordinary practice, these questions would be deemed as nonsensical,
     since they disrespect the \emph{types} of mathematical objects and are not
     invariant under isomorphisms of the involved structures.
+    \item Note: There are also \emph{structural approaches} to set theory
+    without a global membership predicate (e.\,g.\@ ETCS), resolving this
+    defect.
   \end{itemize}
+}
 
+\note{
   \begin{itemize}
     \item\justifying Fully unravel the definition of ``manifold'' in set-theoretical
     language to get a grasp of the complex encodings needed.
     \item This is no problem for humans, but it is for machines.
+    \item Voevodsky: ``The roadblock that prevented generations of interested
+    mathematicians and computer scientists from solving the problem of computer
+    verification of mathematical reasoning was the unpreparedness of
+    foundations of mathematics for the requirements of this task.''
   \end{itemize}
 
   \begin{itemize}
@@ -172,12 +200,261 @@
 }
 
 
-\section{Basics on homotopy type theory}
+\section{Basics on homotopy type theory (HoTT)}
 
 \subsection{What is homotopy type theory?}
 
 \frame[t]{\frametitle{What is homotopy type theory?}
   \begin{itemize}
+    \item Homotopy type theory is a new foundational theory.
+    \item Basic notions have a homotopy-theoretic flavour.
+    \item One can start doing ``real mathematics'' right away, without complex encodings.
+    \item Initiated by Voevodsky in 2005.
+  \end{itemize}
+
+  \img{0.2}{authors}{Some participants of the IAS special year}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Homotopy type theory is approximately intensional Martin-Löf type
+    theory (existing since the 1970s) plus the new \emph{univalence axiom}.
+    \item After repeatedly experiencing mistakes in his field going unnoticed
+    for several years, Voevodsky wanted to work with proof assistants. He went
+    public in 2009.
+  \end{itemize}
+}
+
+\subsection{What are values and types?}
+
+\frame[t]{\frametitle{What are values and types?}
+  \begin{itemize}
+    \item In type theory, there are \hil{values} and \hil{types}.
+    \item Every value is of exactly one type.
+    \item Types may depend on values.
+  \end{itemize}
+  \begin{align*}
+    7 &: \NN \\
+    (3,5) &: \NN \times \NN \\
+    \succ &: \NN \to \NN \\
+    \text{zero vector} &: \RR^n \quad\text{($n : \NN$)}
+  \end{align*}
+
+  \pause
+  Let~$B(x)$ be a type family depending on $x:A$.
+  \begin{itemize}
+    \item $\sum_{x:A} B(x) = \text{``$\{ (a,b) \,|\, a:A, b:B(a) \}$''}$
+    \item $\prod_{x:A} B(x) = \text{``$\{ f : A \to {??} \,|\, \text{$f(a) : B(a)$ for
+    all $a:A$} \}$''}$
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Types are familiar from programming (\texttt{Int},
+    \texttt{String}, \ldots).
+    \item But the type systems of well-known mainstream languages are either
+    trivial (Ruby, Python: everything is an object) or not very expressive (C,
+    Java).
+    \item Haskell and languages of the ML family have a rich type system,
+    encompassing function types and algebraic data types.
+    \item But even their type systems do not support \emph{dependent types} --
+    types which may depend on values. Look to Coq or Agda for those.
+  \end{itemize}
+}
+
+\note{
+  In the special case that~$B(x) \defeqv B$ does not depend on $x$:
+  \[ \sum_{x:A} B \equiv A \times B \qquad
+    \prod_{x:A} B \equiv (A \to B) \]
+}
+
+
+\subsection{What is the dependent equality type?}
+
+\frame[t]{\frametitle{What is the dependent equality type?}
+  In set theory, for a set~$X$ and elements~$x,y \in X$:
+  \begin{itemize}
+    \item ``$x=y$'' is a \hil{proposition}.
+    \item Set theory is \hil{layered above} predicate logic.
+  \end{itemize}
+  \bigskip
+
+  In intens.\@ type theory, for a type~$X$ and values~$x,y : X$:
+  \begin{itemize}
+    \item There is the \hil{equality type} $\Id_X(x,y)$ or $(x =_X y)$.
+    \item To verify that ``$x=y$'',
+    exhibit a value of~$(x = y)$.
+    \item Have $\refl_x : (x = x)$.
+    \item Identity types may contain zero or \hil{many} values!
+  \end{itemize}
+  Intuition: $(x = y)$ is the type of \hil{proofs} that ``$x=y$''.
+
+  \pause
+  Intuition: $(x = y)$ is the type of \hil{paths} $x \leadsto y$.
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Note that we use logical terminology. A proposition is merely a
+    statement, not necessarily a true statement.
+    \item In an intensional type theory, propositions are not an extra part of
+    the language, distinct from values and types.
+    \item Instead, \emph{propositions are (some) types}.
+    \item To prove a proposition means to exhibit a value of it.
+    Such a value can be thought of as a \emph{proof} or \emph{witness}.
+    \item We have \emph{proof relevance}.
+    \item (Not all types are propositions, see below for $\IsProp$.)
+  \end{itemize}
+}
+
+\note{
+  Examples for more complex propositions (types):
+  \begin{itemize}
+    \item ``$X$ is a subsingleton'': \tabto{4.7cm}
+    $\prod_{x:X} \prod_{y:X} (x=y)$
+    \item ``Addition is commutative'': \tabto{4.7cm}
+    $\prod_{n:\NN} \prod_{m:\NN} (n+m = m+n)$
+    \item ``Every number is even'': \tabto{4.7cm}
+    $\prod_{n:\NN} \sum_{m:\NN} (n=2m)$
+  \end{itemize}
+}
+
+
+\section{Homotopy theory in HoTT}
+
+\subsection{How are types like spaces?}
+
+\frame[t]{\frametitle{How are types like spaces?}
+  \begin{center}\begin{tabular}{ll}
+    \toprule
+    homotopy theory & type theory \\\midrule
+    \hil{space} $X$ & type $X$ \\
+    \hil{point} $x \in X$ & value $x:X$ \\
+    \hil{path} $x \leadsto y$ & value of $(x = y)$ \\
+    \hil{(continuous) map} & value of $X \to Y$ \\
+    \bottomrule
+  \end{tabular}\end{center}
+
+  \begin{itemize}
+    \item A \hil{homotopy} between maps $f, g : X \to Y$ is a value of
+    \[ (f \simeq g) \defeqv \prod_{x:X} (f(x) = g(x)). \]
+    \item A space $X$ is \hil{contractible} iff
+    \[ \IsContr(X) \defeqv \sum_{x:X} \prod_{y:X} (x=y). \]
+  \end{itemize}
+}
+
+\frame[t]{\frametitle{How are types like spaces?}
+  \begin{itemize}
+  \item ``The type $X$ is \hil{contractible}'':
+    \[ \IsContr(X) \defeqv \sum_{x:X} \prod_{y:X} (x=y). \]
+
+  \item ``The type $X$ is a \hil{mere proposition}'':
+  \[ \IsProp(X) \defeqv \prod_{x,y:X} \IsContr(x = y) \]
+
+  \item ``The type $X$ is a \hil{set} or \hil{discrete space}'':
+  \[ \IsSet(X) \defeqv \prod_{x,y:X} \IsProp(x = y) \]
+
+  \item For instance, $\NN$ is a set.
+  \end{itemize}
+}
+
+
+\subsection{How are constructions encoded?}
+
+\frame[t]{\frametitle{How are constructions encoded?}
+  \begin{itemize}
+    \item The \hil{fiber} of a map $f : X \to Y$ over a point $y:Y$ is
+    \[ \fib_f(y) \defeqv \sum_{x:X} (f(x) = y). \]
+
+    \item The \hil{path space} of $X$ is
+    \[ X^I \defeqv \sum_{x,y:X} (x=y). \]
+
+    \item The \hil{based loop space} of $X$ at $x$ is
+    \[ \Omega^1(X,x) \defeqv (x=x). \]
+
+    \item The \hil{path fibration} of $(X,x)$ is the map
+    \[ \snd : \sum_{y:X} (x=y) \to X. \]
+  \end{itemize}
+}
+
+
+\subsection{What are higher inductive definitions?}
+
+\frame[t]{\frametitle{What are higher inductive definitions?}
+  The type~$\NN$ of natural numbers is \hil{freely generated} by
+  \begin{itemize}
+    \item a point $0 : \NN$ and
+    \item a function $\succ : \NN \to \NN$.
+  \end{itemize}
+  This definition gives rise to an \hil{induction scheme}
+  \[ \prod_{A:\NN \to \U}
+    \Bigl(
+    A(0) \times \Bigl(\prod_{n:\NN} A(n) \to A(\succ(n))\Bigr) \longrightarrow
+    \prod_{n:\NN} A(n)
+    \Bigr), \]
+  and a \hil{recursion scheme}
+  \[ \prod_{X:\U}
+    \Bigl(
+    X \times \Bigl(\NN \to (X \to X)\Bigr) \longrightarrow
+    (\NN \to X)
+    \Bigr). \]
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying $\U$ is a \emph{universe}. Its values are types.
+    \item The recursion scheme is the specialization of the induction scheme to
+    constant type families $A(n) \equiv X$.
+    \item In a \emph{higher} inductive definition, constructors may not only
+    generate \emph{points}, but also \emph{paths} and \emph{higher paths}. 
+  \end{itemize}
+}
+
+\frame[t]{\frametitle{How to present famous spaces?}
+  The \hil{interval} $I$ is freely generated by
+  \begin{itemize}
+    \item a point $0 : I$ and
+    \item a point $1 : I$ and
+    \item a path $\seg : (0 = 1)$.
+  \end{itemize}
+  \bigskip
+
+  The \hil{circle} $S^1$ is freely generated by
+  \begin{itemize}
+    \item a point $\base : S^1$ and
+    \item a path $\lloop : (\base = \base)$.
+  \end{itemize}
+  \bigskip
+
+  The \hil{sphere} $S^2$ is freely generated by
+  \begin{itemize}
+    \item a point $\base : S^2$ and
+    \item a path $\surf : (\refl_\base = \refl_\base)$.
+  \end{itemize}
+}
+
+\frame[t]{\frametitle{How to present famous spaces?}
+  The \hil{suspension} $\Sigma X$ of $X$ is freely generated by
+  \begin{itemize}
+    \item a point $\N : \Sigma X$ and
+    \item a point $\S : \Sigma X$ and
+    \item a function $\merid : X \to (N = S)$.
+  \end{itemize}
+}
+
+
+\section{References}
+
+\frame[t]{\frametitle{References}
+  \begin{itemize}
+    \item the book (XXX)
+
+    \item Voevodsky on his motivations:
+
+    \url{http://www.math.ias.edu/~vladimir/Site3/Univalent_Foundations_files/2014_IAS.pdf}
+
+    \item \url{http://www.math.ias.edu/~mshulman/hottseminar2012/01intro.pdf}
   \end{itemize}
 }
 
