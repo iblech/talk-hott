@@ -60,6 +60,12 @@
 \setbeamertemplate{headline}{}
 \setbeamertemplate{navigation symbols}{}
 
+\newcommand{\floatbox}[3]{%
+  \raisebox{0pt}[0pt][0pt]{%
+    \begin{picture}(0,0)(#1,#2)#3\end{picture}\leavevmode%
+  }%
+}
+
 \newcommand{\backupstart}{
   \newcounter{framenumberpreappendix}
   \setcounter{framenumberpreappendix}{\value{framenumber}}
@@ -250,13 +256,14 @@
     \text{zero vector} &: \RR^n \quad\text{($n : \NN$)}
   \end{align*}
 
-  \pause
+  \visible<2>{
   Let~$B(x)$ be a type family depending on $x:A$.
   \begin{itemize}
     \item $\sum_{x:A} B(x) = \text{``$\{ (a,b) \,|\, a:A, b:B(a) \}$''}$
     \item $\prod_{x:A} B(x) = \text{``$\{ f : A \to {??} \,|\, \text{$f(a) : B(a)$ for
     all $a:A$} \}$''}$
-  \end{itemize}
+  \end{itemize}}
+  \floatbox{-250}{-90}{\includegraphics[scale=0.7]{martin-loef}}
 }
 
 \note{
