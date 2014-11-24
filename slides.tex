@@ -34,7 +34,7 @@
 \renewcommand{\S}{\mathsf{S}}
 \newcommand{\Cyl}{\mathrm{Cyl}}
 \newcommand{\IsContr}{\mathsf{IsContr}}
-\newcommand{\IsProp}{\mathsf{IsProp}}
+\newcommand{\IsMereProp}{\mathsf{IsMereProp}}
 \newcommand{\IsSet}{\mathsf{IsSet}}
 \newcommand{\IsEquiv}{\mathsf{IsEquiv}}
 \newcommand{\LEM}{\mathsf{LEM}}
@@ -54,8 +54,8 @@
 \date{November 25th, 2014}
 
 \usetheme{Warsaw}
-\definecolor{nyupurple}{RGB}{90, 35, 140}
-\setbeamercolor{structure}{fg=nyupurple}
+\definecolor{mypurple}{RGB}{200, 35, 180}
+%\setbeamercolor{structure}{fg=purple}
 \usecolortheme{seahorse}
 %\usecolortheme{purple}?
 %\usefonttheme{default}?
@@ -186,7 +186,6 @@
 \frame[t]{\frametitle{What's wrong with set-based foundations?}
   Set-based foundations \ldots
   \begin{itemize}
-    \item allow to formulate nonsensical questions,
     \item do not reflect typed mathematical practice,
     \item do not respect equivalence of structures,
     \item require complex encoding of ``higher-level'' subjects,
@@ -227,6 +226,9 @@
 }
 
 
+% Now the fun begins! :-)
+\setbeamercolor{structure}{fg=purple}
+
 \section{Basics on homotopy type theory (HoTT)}
 
 \subsection{What is homotopy type theory?}
@@ -242,15 +244,53 @@
   \img{0.2}{authors}{Some participants of the IAS special year}
 }
 
+\frame[t,label=awesome]{\frametitle{What is homotopy type theory?}
+  Homotopy type theory \ldots
+  \begin{itemize}
+    \item is elegant,
+    \item reflects mathematical practice,
+    \item contains wondrous new concepts,
+    \item ensures that everything respects equivalences,
+    \item simplifies the plumbing of homotopy theory,
+    \item allows for accessible computer formalization.
+  \end{itemize}
+
+  \transfade<2>[duration=40]
+  \visible<2>{\img{0.1}{awesome}{}}
+  % http://1.bp.blogspot.com/-cPQyFx7EvCc/UxVEm6Td29I/AAAAAAAAfBg/HZ1AwI2re9Q/s1600/unikitty.png
+}
+
 \note{
   \begin{itemize}
-    \item\justifying Homotopy type theory is approximately intensional Martin-Löf type
-    theory (existing since the 1970s) plus the new \emph{univalence axiom}.
+    \item\justifying Homotopy type theory is approximately \emph{intensional Martin-Löf type
+    theory} (existing since the 1970s) plus the new \emph{univalence axiom}.
     \item After repeatedly experiencing mistakes in his field going unnoticed
     for several years, Voevodsky wanted to work with proof assistants. He went
     public in 2009.
+    \item Voevodsky: ``This story got me scared. Starting from 1993 multiple groups of
+    mathematicians studied the [\ldots] paper at seminars and used it in their
+    work and none of them noticed the mistake.
+
+    And it clearly was not an accident. A technical argument by a trusted author, which 
+    is hard to check and looks similar to arguments known to be correct, is
+    hardly ever checked in detail.''
   \end{itemize}
 }
+
+\note{
+  Results which have been fully formalized in HoTT include:
+  \begin{itemize}
+    \item $\pi_1(S^1)$
+    \item $\pi_{k \leq n}(S^n)$
+    \item $\pi_{n+1}(S^n)$ is cyclic for all $n \geq 3$
+    \item fiber sequences and the long exact sequence
+    \item the Hopf fibration
+    \item the Freudenthal suspension theorem
+    \item the van Kempen theorem
+    \item the Blakers--Massey theorem
+  \end{itemize}
+}
+
 
 \subsection{What are values and types?}
 
@@ -308,7 +348,7 @@
   \end{itemize}
   \bigskip
 
-  In intens.\@ type theory, for a type~$X$ and values~$x,y : X$:
+  In type theory, for a type~$X$ and values~$x,y : X$:
   \begin{itemize}
     \item There is the \hil{equality type} $\Id_X(x,y)$ or $(x =_X y)$.
     \item To verify that ``$x=y$'',
@@ -328,22 +368,24 @@
     statement, not necessarily a true statement.
     \item In an intensional type theory, propositions are not an extra part of
     the language, distinct from values and types.
-    \item Instead, \emph{propositions are (some) types}.
+    \item Instead, \emph{propositions are types}.
     \item To prove a proposition means to exhibit a value of it.
     Such a value can be thought of as a \emph{proof} or \emph{witness}.
     \item We have \emph{proof relevance}.
-    \item (Not all types are propositions, see below for $\IsProp$.)
+    \item Types which values are all equal -- types for which merely knowing that they
+    are inhabited -- are called \emph{mere propositions}. See below for
+    $\IsMereProp$.
   \end{itemize}
 }
 
 \note{
   Examples for more complex propositions (types):
   \begin{itemize}
-    \item ``$X$ is a subsingleton'': \tabto{4.7cm}
+    \item ``$X$ is a subsingleton'': \tabto{4.9cm}
     $\prod_{x:X} \prod_{y:X} (x=y)$
-    \item ``Addition is commutative'': \tabto{4.7cm}
+    \item ``Addition is commutative'': \tabto{4.9cm}
     $\prod_{n:\NN} \prod_{m:\NN} (n+m = m+n)$
-    \item ``Every number is even'': \tabto{4.7cm}
+    \item ``Every number is even'': \tabto{4.9cm}
     $\prod_{n:\NN} \sum_{m:\NN} (n=2m)$
   \end{itemize}
 }
@@ -378,12 +420,23 @@
     \[ \IsContr(X) \defeqv \sum_{x:X} \prod_{y:X} (x=y). \]
 
   \item ``The type $X$ is a \hil{mere proposition}'':
-  \[ \IsProp(X) \defeqv \prod_{x,y:X} (x = y) \]
+  \[ \IsMereProp(X) \defeqv \prod_{x,y:X} (x = y) \]
 
   \item ``The type $X$ is a \hil{set} or \hil{discrete space}'':
-  \[ \IsSet(X) \defeqv \prod_{x,y:X} \IsProp(x = y) \]
+  \[ \IsSet(X) \defeqv \prod_{x,y:X} \IsMereProp(x = y) \]
 
   \item For instance, $\NN$ is a set.
+  \end{itemize}
+}
+
+\frame[t]{\frametitle{How are types like spaces?}
+  \begin{itemize}
+    \item Functions are automatically continuous/functorial:
+    \[ (x = y) \longrightarrow (f(x) = f(y)). \]
+
+    \item Type families $P : X \to \U$ automatically behave like fibrations, in
+    that they have the path lifting property:
+    \[ (x = y) \longrightarrow (P(x) \simeq P(y)). \]
   \end{itemize}
 }
 
@@ -454,16 +507,16 @@
 }
 
 \frame[t]{\frametitle{How to present famous spaces?}
-  The \hil{interval} $I$ is generated by
-  \begin{itemize}
-    \item a point $0 : I$ and
-    \item a point $1 : I$ and
-    \item a path $\seg : (0 = 1)$.
-  \end{itemize}
-  Of course, we can show $I \simeq \boldsymbol{1}$.
-  \bigskip
+%  The \hil{interval} $I$ is generated by
+%  \begin{itemize}
+%    \item a point $0 : I$ and
+%    \item a point $1 : I$ and
+%    \item a path $\seg : (0 = 1)$.
+%  \end{itemize}
+%  Of course, we can show $I \simeq \boldsymbol{1}$.
+%  \bigskip
+%  \pause
 
-  \pause
   The \hil{circle} $S^1$ is generated by
   \begin{itemize}
     \item a point $\base : S^1$ and
@@ -471,20 +524,35 @@
   \end{itemize}
   \bigskip
 
-%  The \hil{sphere} $S^2$ is generated by
-%  \begin{itemize}
-%    \item a point $\base : S^2$ and
-%    \item a path $\surf : (\refl_\base = \refl_\base)$.
-%  \end{itemize}
-}
+  The \hil{sphere} $S^2$ is generated by
+  \begin{itemize}
+    \item a point $\base : S^2$ and
+    \item a path $\surf : (\refl_\base = \refl_\base)$.
+  \end{itemize}
+  \bigskip
 
-\frame[t]{\frametitle{How to present famous spaces?}
   The \hil{torus} $T^2$ is generated by
   \begin{itemize}
     \item a point $b : T^2$,
     \item a path $p : (b = b)$,
     \item a path $q : (b = b)$, and
     \item a 2-path $t : (p \ct q = q \ct p)$.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Note that a presentation of a type \emph{determines}, but does not
+    \emph{explicitly describe} its higher identity types.
+    \item Just like the free vector space spanned by set contains not only the
+    given elements, but also their linear combinations, the type given by a
+    higher inductive definition (or its higher identity types) may contain many
+    more values than explicitly listed.
+    \item For instance, there is a nontrivial element in $(\refl_{\refl_\base}
+    = \refl_{\refl_\base})$, where $\base : S^2$, corresponding to the
+    \emph{Hopf fibration}.
+    \item Also, different generators may turn out to give rise to the same
+    element.
   \end{itemize}
 }
 
@@ -570,7 +638,7 @@
 }
 
 
-\section{The fundamental group in HoTT}
+\section{Further topics}
 
 \subsection{What is type truncation?}
 
@@ -614,18 +682,16 @@
 }
 
 
-\section{Further topics}
-
 \subsection{What is the univalence axiom?}
 
 \frame[t]{\frametitle{What is the univalence axiom?}
   An \hil{equivalence} is a function $f : X \to Y$ such that
   \[ \IsEquiv(f) \defeqv \prod_{y:Y} \IsContr(\fib_f(y)). \]
-  \bigskip
+  \medskip
 
   Types $X$ and $Y$ are \hil{equivalent} iff
   \[ (X \simeq Y) \defeqv \sum_{f : X \to Y} \IsEquiv(f). \]
-  \bigskip
+  \medskip
 
   The \hil{univalence axiom} states: The canonical function
   \[ (X = Y) \longrightarrow (X \simeq Y) \]
@@ -687,7 +753,7 @@
 
     \pause
     \item The law of excluded middle is too rarely needed.
-    \[ \LEM \defeqv \prod_{A:\U} \Bigl(\IsProp(A) \to A + \neg A\Bigr). \]
+    \[ \LEM \defeqv \prod_{A:\U} \Bigl(\IsMereProp(A) \to A + \neg A\Bigr). \]
   \end{itemize}
 }
 
@@ -748,38 +814,40 @@
   \end{itemize}
 }
 
-\note{
-  \begin{itemize}
-    \item Urs' example for a great success in formalization
-    \item availability of higher structures
-    \item built-in ``functoriality''
-  \end{itemize}
-}
 
+\backupstart
+
+\againframe{awesome}
 
 \section{References}
 
 \frame[t]{\frametitle{References}
   \begin{itemize}
-    \item the book (XXX)
+    \item The textbook
 
-    \item Voevodsky on his motivations:
+    {\tiny\url{http://homotopytypetheory.org/book/}\par}
 
-    \url{http://www.math.ias.edu/~vladimir/Site3/Univalent_Foundations_files/2014_IAS.pdf}
+    \item Voevodsky on his motivations
 
-    \item \url{http://www.math.ias.edu/~mshulman/hottseminar2012/01intro.pdf}
+    {\tiny
+    \url{http://www.math.ias.edu/~vladimir/Site3/Univalent_Foundations_files/2014_IAS.pdf}\par}
+
+    \item Seminar slides
+
+    {\tiny
+    \url{http://www.math.ias.edu/~mshulman/hottseminar2012/01intro.pdf}
+    \url{http://www.math.ias.edu/~mshulman/hottminicourse2012/04induction.pdf}
+    \url{https://coq.inria.fr/files/coq5-slides-spitters.pdf}
+    \url{https://www.andrew.cmu.edu/user/awodey/hott/CMUslides.pdf}\par}
+
+    \item An application unrelated to homotopy theory
+
+    {\tiny\url{http://www.cs.nott.ac.uk/~txa/talks/lyon14.pdf}\par}
+
+    \item hott-amateurs mailing list
   \end{itemize}
 }
 
-\backupstart
 \backupend
 
 \end{document}
-
-XXX: Illustration of sets and types
-
-http://www.math.ias.edu/~mshulman/hottminicourse2012/04induction.pdf
-https://coq.inria.fr/files/coq5-slides-spitters.pdf
-https://www.andrew.cmu.edu/user/awodey/hott/CMUslides.pdf
-
-http://www.cs.nott.ac.uk/~txa/talks/lyon14.pdf
