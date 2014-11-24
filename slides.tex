@@ -37,6 +37,7 @@
 \newcommand{\IsSet}{\mathsf{IsSet}}
 \newcommand{\IsEquiv}{\mathsf{IsEquiv}}
 \newcommand{\LEM}{\mathsf{LEM}}
+\newcommand{\UIP}{\mathsf{UIP}}
 \newcommand{\fib}{\mathsf{fib}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\defeqv}{\vcentcolon\equiv}
@@ -600,20 +601,29 @@
     \item It implies that isomorphic groups, vector spaces, \ldots\@ are equal.
     \item Thus the widespread practice of \emph{pretending} that isomorphic
     structures are equal is rigorously formalized.
+    \item The univalence axiom guarantees that \emph{any construction respects
+    equivalence}.
   \end{itemize}
 
   \begin{itemize}
-    \item Without the univalence axiom, it is consistent to assume
-    \emph{uniqueness of identity proofs}, i.\,e.\@
-    \[ \prod_{X:\U} \prod_{x,y:X} \prod_{p,q:(x=y)} (p=q), \]
-    thus collapsing the homotopical universe.
     \item Most results require the univalence axiom.
   \end{itemize}
 
   \begin{itemize}
-    \item \emph{No computational interpretation of the univalence axiom is
+    \item\justifying \emph{No computational interpretation of the univalence axiom is
     known yet.} This prevents us from \emph{running} proofs (as computer
     programs). See below.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Without the univalence axiom, it is consistent to assume
+    \emph{uniqueness of identity proofs}, i.\,e.\@
+    \[ \UIP \defeqv \prod_{X:\U} \prod_{x,y:X} \prod_{p,q:(x=y)} (p=q), \]
+    thus collapsing the homotopical universe.
+    \item Phrased differently, the univalence axiom can not be added to an
+    \emph{extensional} type theory (one fulfillung $\UIP$).
   \end{itemize}
 }
 
@@ -650,7 +660,9 @@
     appear.
 
     \item Adding these two axioms prevents us from running proofs. In contrast
-    to the univalence axiom, there is no hope of mitigating this.
+    to the univalence axiom, where it is believed that a computational
+    interpretation might be found, this is less clear with these classical
+    axioms.
   \end{itemize}
 }
 
@@ -665,14 +677,38 @@
   \end{itemize}
 }
 
+
+\subsection{What are models of HoTT?}
+
+\frame[t]{\frametitle{What are models of HoTT?}
+  Conjecturally, HoTT can be interpreted in any \hil{$\boldsymbol{(\infty,1)}$-topos}. Verified
+  models include
+  \begin{itemize}
+    \item ${\infty}\mathrm{Grpd}$, i.\,e.\@ a model in simplicial sets, and
+    \item $(\infty,1)$-presheaf toposes over elegant Reedy categories.
+  \end{itemize}
+
+  Thus, any theorem proven in HoTT holds in the context of classical homotopy
+  theory and in more general contexts.
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying ${\infty}\mathrm{Grpd} \simeq \mathrm{Top}[\mathrm{whe}^{-1}]
+    \simeq \mathrm{Kan}$ is equivalently the $(\infty,1)$-category of all
+    $(\infty,1)$-groupoids; the localization of the category of
+    topological spaces (which have the homotopy type of a CW complex) at the
+    class of weak homotopy equivalences; and the category of Kan complexes.
+  \end{itemize}
+}
+
 \note{
   \begin{itemize}
     \item Urs' example for a great success in formalization
-    \item models of HoTT
     \item availability of higher structures
     \item $\pi_1(S^1) \simeq \ZZ$
     \item ``look ma, no real numbers, no AxC, no \ldots''
-    \item built-in ``functoriality'', invariance under equivalence
+    \item built-in ``functoriality''
   \end{itemize}
 }
 
@@ -701,3 +737,5 @@ XXX: Illustration of sets and types
 http://www.math.ias.edu/~mshulman/hottminicourse2012/04induction.pdf
 https://coq.inria.fr/files/coq5-slides-spitters.pdf
 https://www.andrew.cmu.edu/user/awodey/hott/CMUslides.pdf
+
+http://www.cs.nott.ac.uk/~txa/talks/lyon14.pdf
