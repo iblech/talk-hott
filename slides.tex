@@ -36,6 +36,7 @@
 \newcommand{\IsProp}{\mathsf{IsProp}}
 \newcommand{\IsSet}{\mathsf{IsSet}}
 \newcommand{\IsEquiv}{\mathsf{IsEquiv}}
+\newcommand{\LEM}{\mathsf{LEM}}
 \newcommand{\fib}{\mathsf{fib}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\defeqv}{\vcentcolon\equiv}
@@ -616,11 +617,58 @@
   \end{itemize}
 }
 
+
+\subsection{What's the status of the axiom of choice?}
+
+\frame[t]{\frametitle{What's the status of the axiom of choice?}
+  \begin{itemize}
+    \item The following proposition is \hil{just true},
+    but is not a faithful rendition of the axiom of choice:
+    \[ \Bigl(\prod_{x:A} \sum_{y:B} R(x,y)\Bigr) \longrightarrow
+    \sum_{f : A \to B} \prod_{x:A} R(x,f(x)). \]
+    \item The real axiom of choice,
+    \[ \Bigl(\prod_{x:A} \Bigl\|\sum_{y:B} R(x,y)\Bigr\|_{-1}\Bigr) \longrightarrow
+    \Bigl\|\sum_{f : A \to B} \prod_{x:A} R(x,f(x))\Bigr\|_{-1}, \]
+    can be added as an axiom, but is rarely needed.
+
+    \pause
+    \item The law of excluded middle is too rarely needed.
+    \[ \LEM \defeqv \prod_{A:\U} \Bigl(\IsProp(A) \to A + \neg A\Bigr). \]
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying When doing homotopy theory in a classical set-based
+    setting, one has to sometimes use the law of excluded middle or even the
+    axiom of choice. This is an \emph{artifact} of the chosen encoding in set
+    theory. It is \emph{not} due to an inherent unconstructivity of homotopy
+    theory.
+
+    \item Also recall that even in set-based mathematics, the law of excluded
+    middle and the axiom of choice are not needed as often as it might first
+    appear.
+
+    \item Adding these two axioms prevents us from running proofs. In contrast
+    to the univalence axiom, there is no hope of mitigating this.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item Since the law of excluded middle as stated refers only to mere
+    propositions ($(-1)$-types), it is also denoted ``$\LEM_{-1}$''.
+    \item A law of excluded middle may not refer to \emph{all} types,
+    i.\,e.\@
+    \[ \LEM_\infty \defeqv \prod_{A:\U} \Bigl(A + \neg A\Bigr), \]
+    is inconsistent with the univalence axiom.
+  \end{itemize}
+}
+
 \note{
   \begin{itemize}
     \item Urs' example for a great success in formalization
     \item models of HoTT
-    \item axiom of choice, law of excluded middle
     \item availability of higher structures
     \item $\pi_1(S^1) \simeq \ZZ$
     \item ``look ma, no real numbers, no AxC, no \ldots''
