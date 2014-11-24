@@ -35,6 +35,7 @@
 \newcommand{\IsContr}{\mathsf{IsContr}}
 \newcommand{\IsProp}{\mathsf{IsProp}}
 \newcommand{\IsSet}{\mathsf{IsSet}}
+\newcommand{\IsEquiv}{\mathsf{IsEquiv}}
 \newcommand{\fib}{\mathsf{fib}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\defeqv}{\vcentcolon\equiv}
@@ -481,6 +482,7 @@
   Of course, we can show $\Cyl(X) \simeq X \times I \simeq X$.
 }
 
+
 \subsection{What is circle induction?}
 
 \frame[t]{\frametitle{What is circle induction?}
@@ -572,9 +574,50 @@
   \end{itemize}
 }
 
+
+\section{Further topics}
+
+\subsection{What is the univalence axiom?}
+
+\frame[t]{\frametitle{What is the univalence axiom?}
+  An \hil{equivalence} is a function $f : X \to Y$ such that
+  \[ \IsEquiv(f) \defeqv \prod_{y:Y} \IsContr(\fib_f(y)). \]
+  \bigskip
+
+  Types $X$ and $Y$ are \hil{equivalent} iff
+  \[ (X \simeq Y) \defeqv \sum_{f : X \to Y} \IsEquiv(f). \]
+  \bigskip
+
+  The \hil{univalence axiom} states: The canonical function
+  \[ (X = Y) \longrightarrow (X \simeq Y) \]
+  is an equivalence, for all types $X$ and $Y$.
+}
+
 \note{
   \begin{itemize}
-    \item univalence axiom
+    \item\justifying By the univalence axioms, equivalent types \emph{really are} equal.
+    \item It implies that isomorphic groups, vector spaces, \ldots\@ are equal.
+    \item Thus the widespread practice of \emph{pretending} that isomorphic
+    structures are equal is rigorously formalized.
+  \end{itemize}
+
+  \begin{itemize}
+    \item Without the univalence axiom, it is consistent to assume
+    \emph{uniqueness of identity proofs}, i.\,e.\@
+    \[ \prod_{X:\U} \prod_{x,y:X} \prod_{p,q:(x=y)} (p=q), \]
+    thus collapsing the homotopical universe.
+    \item Most results require the univalence axiom.
+  \end{itemize}
+
+  \begin{itemize}
+    \item \emph{No computational interpretation of the univalence axiom is
+    known yet.} This prevents us from \emph{running} proofs (as computer
+    programs). See below.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
     \item Urs' example for a great success in formalization
     \item models of HoTT
     \item axiom of choice, law of excluded middle
