@@ -10,6 +10,7 @@
 \usepackage{ragged2e}
 \usepackage{multicol}
 \usepackage{tabto}
+\usepackage{xstring}
 
 \usepackage[protrusion=true,expansion=false]{microtype}
 
@@ -95,7 +96,11 @@
 \newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\\small#3\end{center}}
 %\newcommand{\imageslide}[3]{\frame{\frametitle{#1}\img{#2}{#3}}}
 
-\setbeameroption{show notes}
+\IfSubStr{\jobname}{\detokenize{nonotes}}{
+  \setbeameroption{hide notes}
+}{
+  \setbeameroption{show notes}
+}
 \setbeamertemplate{note page}[plain]
 
 \begin{document}
