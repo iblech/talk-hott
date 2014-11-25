@@ -175,7 +175,7 @@
 
 \note{
   \begin{itemize}
-    \item Foundations allow us to be maximally precise.
+    \item\justifying Foundations allow us to be maximally precise.
     \item A \emph{proof} as commonly understood is really a shorthand for a
     (never spelled out) fully formal proof.
     \item Unlike informal proofs, the correctness of a formal proof can be
@@ -183,6 +183,14 @@
   \end{itemize}
 
   \img{0.5}{logicomix}{Logicomix: An Epic Search for Truth}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying There is no such theorem as ``the sun system is stable if
+    and only if the following large cardinal axiom holds''. Results depend only
+    very occasionally on special foundational axioms.
+  \end{itemize}
 }
 
 
@@ -249,7 +257,7 @@
   \img{0.2}{authors}{Some participants of the IAS special year}
 }
 
-\frame[t,label=awesome]{\frametitle{What is homotopy type theory?}
+\frame<1>[t,label=awesome]{\frametitle{What is homotopy type theory?}
   Homotopy type theory \ldots
   \begin{itemize}
     \item is elegant,
@@ -384,6 +392,7 @@
 }
 
 \note{
+  \justifying
   Examples for more complex propositions (types):
   \begin{itemize}
     \item ``$X$ is a subsingleton'': \tabto{4.9cm}
@@ -392,6 +401,23 @@
     $\prod_{n:\NN} \prod_{m:\NN} (n+m = m+n)$
     \item ``Every number is even'': \tabto{4.9cm}
     $\prod_{n:\NN} \sum_{m:\NN} (n=2m)$
+  \end{itemize}
+
+  By reading ``for all $x:X$'' for ``$\prod_{x:X}$'' and ``there exists $x:X$''
+  for~``$\sum_{x:X}$'', these types can be interpreted in a simple logical way.
+  But at the same time, they can be read in geometric/homotopy-theoretic terms;
+  see below.
+  \par
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Identity witnesses can be composed: Let $p : (x = y)$ and $q :
+    (y = z)$. Then there exists a canonically defined witness~$p \ct q : (x = z)$.
+
+    \item Composition of identity witnesses is associative. The proof of this
+    fact is a value of the type
+    \[ (p \ct (q \ct r) = (p \ct q) \ct r). \]
   \end{itemize}
 }
 
@@ -419,6 +445,28 @@
   \end{itemize}
 }
 
+\note{
+  \begin{itemize}
+    \item\justifying The type $(f \simeq g)$ is the type of homotopies
+    between~$f$ and~$g$. It is read as the type of ``continuous families of
+    paths $f(x) \leadsto g(x)$''.
+
+    \item To understand the definition of contractibility geometrically, one
+    may not read it in logical terms: One may not read it as ``there exists a
+    point~$x$ such that any point~$y$ is connected to~$x$''.
+
+    \item Instead, it should be read as follows: There exists a point~$x$ such
+    that there is a \emph{continuous} way of associating to any point~$y$ a
+    path~$x \leadsto y$. Convince yourself that the circle is, according to
+    this reading, contractible.
+
+    \item A space is \emph{connected} if and only if
+    \[ \sum_{x:X} \prod_{y:X} \|x=y\|_{-1}. \]
+    Here, $\|x_y\|_{-1}$ is the \emph{$(-1)$-truncation} of~$(x = y)$; it is a
+    mere proposition. See below.
+  \end{itemize}
+}
+
 \frame[t]{\frametitle{How are types like spaces?}
   \begin{itemize}
   \item ``The type $X$ is \hil{contractible}'':
@@ -434,14 +482,33 @@
   \end{itemize}
 }
 
+\note{
+  \begin{itemize}
+    \item The only interesting feature about a mere proposition is whether it
+    is inhabited or not.
+    \item The type $\IsMereProp(X)$ is equivalent to $(X \to \IsContr(X))$.
+  \end{itemize}
+}
+
 \frame[t]{\frametitle{How are types like spaces?}
   \begin{itemize}
     \item Functions are automatically \hil{continuous/functorial}:
     \[ (x = y) \longrightarrow (f(x) = f(y)). \]
 
     \item Type families $P : X \to \U$ automatically behave like
-    \hil{fibrations}, in that they have the path lifting property:
+    \hil{fibrations}, in that fibers over connected points are equivalent:
     \[ (x = y) \longrightarrow (P(x) \simeq P(y)). \]
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying $\U$ is a \emph{universe}. Its values are, to a first
+    approximation, all types.
+    \item For types $A$ and $B$, $(A \simeq B)$ is the type of
+    \emph{equivalences} between~$A$ and~$B$. See below.
+    \item The function $(x = y) \longrightarrow (f(x) = f(y))$ is compatible
+    with composition of identity witnesses.
   \end{itemize}
 }
 
@@ -460,7 +527,7 @@
     \[ \Omega^1(X,x) \defeqv (x=x). \]
 
     \item The \hil{path fibration} of $(X,x)$ is the map
-    \[ \snd : \sum_{y:X} (x=y) \to X. \]
+    \[ \fst : \sum_{y:X} (x=y) \to X. \]
   \end{itemize}
   \floatbox{-250}{-45}{\only<2>{\includegraphics[scale=0.5]{look-ma}}}
 }
@@ -556,6 +623,11 @@
     \item For instance, there is a nontrivial element in $(\refl_{\refl_\base}
     = \refl_{\refl_\base})$, where $\base : S^2$, corresponding to the
     \emph{Hopf fibration}.
+    \item More generally, higher-dimensional paths are forced into existence by
+    \emph{proofs}. For instance, in~$(\base = \base)$ where $\base : S^1$,
+    there are the values~$\lloop \ct (\lloop \ct \lloop)$ and~$(\lloop \ct
+    \lloop) \ct \lloop$. They are the same by a witness of type~$(\lloop \ct
+    (\lloop \ct \lloop) = (\lloop \ct \lloop) \ct \lloop)$.
     \item Also, different generators may turn out to give rise to the same
     element.
   \end{itemize}
@@ -732,13 +804,15 @@
     \[ \UIP \defeqv \prod_{X:\U} \prod_{x,y:X} \prod_{p,q:(x=y)} (p=q), \]
     thus collapsing the homotopical universe.
     \item Phrased differently, the univalence axiom can not be added to an
-    \emph{extensional} type theory (one fulfillung $\UIP$).
+    \emph{extensional} type theory (one fulfilling $\UIP$).
   \end{itemize}
 
   \begin{itemize}
     \item\justifying \emph{No computational interpretation of the univalence axiom is
     known yet.} This prevents us from \emph{running} proofs (as computer
-    programs). See below.
+    programs). If this were possible, we could, for instance, simply run a
+    proof of the fact that some~$\pi_k(S^n)$ is cyclic (i.\,e.\@ of the
+    form~$\ZZ/(m)$) to find out the value of~$m$.
   \end{itemize}
 }
 
@@ -822,7 +896,7 @@
 
 \backupstart
 
-\againframe{awesome}
+\againframe<1-2>{awesome}
 
 \section{References}
 
