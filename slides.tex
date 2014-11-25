@@ -449,6 +449,26 @@
 }
 
 \note{
+  \begin{center}
+    \scalebox{0.6}{\input{paths.pspdftex}}
+  \end{center}
+  \vspace{-1.3em}
+
+  \begin{itemize}
+    \item\justifying This type has values $x, y : X$.
+    \item The paths~$p$, $q$, and $r$ are values of~$(x = y)$.
+    \item Since~$p$ and~$q$ are homotopic, we have~$(p = q)$; a witness of this
+    fact is the value~$H : (p = q)$.
+    \item Because of the hole, $p$ (and~$q$) are not homotopic to~$r$. So $\neg(p
+    = r)$; more precisely, the type~$\neg(p=r) \defeqv ((p=r) \to
+    \boldsymbol{0})$ is inhabited, where~$\boldsymbol{0}$ is the \emph{empty
+    type}.
+    \item We have~$(x = y) \simeq \ZZ$, where~$\simeq$ denotes
+    \emph{equivalence}, to be discussed below.
+  \end{itemize}
+}
+
+\note{
   \begin{itemize}
     \item\justifying The type $(f \simeq g)$ is the type of homotopies
     between~$f$ and~$g$. It is read as the type of ``continuous families of
@@ -465,7 +485,7 @@
 
     \item A space is \emph{connected} if and only if
     \[ \sum_{x:X} \prod_{y:X} \|x=y\|_{-1}. \]
-    Here, $\|x_y\|_{-1}$ is the \emph{$(-1)$-truncation} of~$(x = y)$; it is a
+    Here, $\|(x=y)\|_{-1}$ is the \emph{$(-1)$-truncation} of~$(x = y)$; it is a
     mere proposition. See below.
   \end{itemize}
 }
