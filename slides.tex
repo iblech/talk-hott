@@ -7,6 +7,7 @@
 \usetikzlibrary{decorations.pathmorphing,arrows}
 \usepackage{mathtools}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{ragged2e}
 \usepackage{multicol}
 \usepackage{tabto}
@@ -779,6 +780,64 @@
     i.\,e.\@ the set of connected components of the space of
     base\-point-preserving functions $S^1 \to X$.
   \end{itemize}
+}
+
+\note{
+  \fontsize{7pt}{8.4}\selectfont
+  \centering
+
+  \definecolor{xA}{rgb}{1., 0.85, 0.85}
+  \definecolor{xB}{rgb}{1., 0.988462, 0.85}
+  \definecolor{xC}{rgb}{0.873077, 1., 0.85}
+  \definecolor{xD}{rgb}{0.85, 1., 0.965385}
+  \definecolor{xE}{rgb}{0.85, 0.896154, 1.}
+  \definecolor{xF}{rgb}{0.942308, 0.85, 1.}
+  \definecolor{xG}{rgb}{1., 0.85, 0.919231}
+  \definecolor{xH}{rgb}{1., 0.919231, 0.85}
+  \definecolor{xI}{rgb}{0.942308, 1., 0.85}
+  \definecolor{xJ}{rgb}{0.85, 1., 0.896154}
+  \definecolor{xK}{rgb}{0.85, 0.965385, 1.}
+  \definecolor{xL}{rgb}{0.873077, 0.85, 1.}
+  \definecolor{xM}{rgb}{1., 0.85, 0.988462}
+
+  \newcommand{\cA}{\colorbox{xG}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cB}{\colorbox{xH}{\hbox to 20pt {\hfil$\ZZ$\hfil}}}
+  \newcommand{\cC}{\colorbox{xI}{\hbox to 20pt {\hfil$\ZZ_{2}$\hfil}}}
+  \newcommand{\cD}{\colorbox{xJ}{\hbox to 20pt {\hfil$\ZZ_{2}$\hfil}}}
+  \newcommand{\cE}{\colorbox{xK}{\hbox to 20pt {\hfil$\ZZ_{24}$\hfil}}}
+  \newcommand{\cF}{\colorbox{xL}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cG}{\colorbox{xM}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cH}{\colorbox{xF}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cI}{\colorbox{xE}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cJ}{\colorbox{xD}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cK}{\colorbox{xC}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cL}{\colorbox{xB}{\hbox to 20pt {\hfil$0$\hfil}}}
+  \newcommand{\cM}{\colorbox{xA}{\hbox to 20pt {\hfil$0$\hfil}}}
+
+  \newcommand{\OPTspherescolwidth}{25pt}
+
+  %\begin{tabular}{p{15pt}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}}
+  \begin{tabular}{p{15pt}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}>{\centering\arraybackslash}p{\OPTspherescolwidth}}
+  \toprule
+             & $S^1$ & $S^{2}$ & $S^{3}$ & $S^{4}$ & $S^{5}$ & $S^{6}$ & $S^{7}$ & $S^{8}$ \\ \addlinespace[3pt] \midrule
+  $\pi_{1}$  & $\ZZ$   & \cA       & \cH       & \cI       & \cJ       & \cK       & \cL       & \cM       \\ \addlinespace[3pt]
+  $\pi_{2}$  & $0$     & \cB       & \cA       & \cH       & \cI       & \cJ       & \cK       & \cL       \\ \addlinespace[3pt]
+  $\pi_{3}$  & $0$     & $\ZZ$      & \cB       & \cA       & \cH       & \cI       & \cJ       & \cK       \\ \addlinespace[3pt]
+  $\pi_{4}$  & $0$     & $\ZZ_{2}$  & \cC       & \cB       & \cA       & \cH       & \cI       & \cJ       \\ \addlinespace[3pt]
+  $\pi_{5}$  & $0$     & $\ZZ_{2}$  & $\ZZ_{2}$  & \cC       & \cB       & \cA       & \cH       & \cI       \\ \addlinespace[3pt]
+  $\pi_{6}$  & $0$     & $\ZZ_{12}$ & $\ZZ_{12}$ & \cD       & \cC       & \cB       & \cA       & \cH       \\ \addlinespace[3pt]
+  $\pi_{7}$  & $0$     & $\ZZ_{2}$  & $\ZZ_{2}$  & {$\ZZ {\times} \ZZ_{12}$} & \cD & \cC & \cB     & \cA    \\ \addlinespace[3pt]
+  $\pi_{8}$  & $0$     & $\ZZ_{2}$  & $\ZZ_{2}$  & $\ZZ_{2}^{2}$ & \cE & \cD & \cC & \cB \\ \addlinespace[3pt]
+  $\pi_{9}$  & $0$     & $\ZZ_{3}$  & $\ZZ_{3}$  & $\ZZ_{2}^{2}$ & $\ZZ_{2}$ & \cE & \cD & \cC \\ \addlinespace[3pt]
+  $\pi_{10}$ & $0$     & $\ZZ_{15}$ & $\ZZ_{15}$ & {$\ZZ_{24} {\times} \ZZ_{3}$} & $\ZZ_{2}$ & \cF & \cE & \cD \\ \addlinespace[3pt]
+  $\pi_{11}$ & $0$     & $\ZZ_{2}$  & $\ZZ_{2}$  & $\ZZ_{15}$ & $\ZZ_{2}$ & $\ZZ$ & \cF & \cE \\ \addlinespace[3pt]
+  $\pi_{12}$ & $0$     & $\ZZ_{2}^{2}$ & $\ZZ_{2}^{2}$ & $\ZZ_{2}$ & $\ZZ_{30}$ & $\ZZ_{2}$ & \cG & \cF \\ \addlinespace[3pt]
+  $\pi_{13}$ & $0$     & {$\ZZ_{12} {\times} \ZZ_{2}$} & {$\ZZ_{12} {\times} \ZZ_{2}$} & $\ZZ_{2}^{3}$ & $\ZZ_{2}$ & $\ZZ_{60}$ & $\ZZ_{2}$ & \cG \\ \addlinespace[3pt]
+  \bottomrule
+  \end{tabular}
+
+  Some of the known homotopy groups of the spheres, lifted from the HoTT book.
+  \par
 }
 
 
