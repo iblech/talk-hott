@@ -56,10 +56,7 @@
 \date{November 25th, 2014}
 
 \usetheme{Warsaw}
-\definecolor{mypurple}{RGB}{200, 35, 180}
-%\setbeamercolor{structure}{fg=purple}
 \usecolortheme{seahorse}
-%\usecolortheme{purple}?
 %\usefonttheme{default}?
 %\usepackage{kurier}?
 \usefonttheme{serif}
@@ -67,6 +64,7 @@
 \usepackage{mathpazo}
 \useinnertheme{rectangles}
 
+\setbeamertemplate{title page}[default][colsep=-1bp,rounded=false,shadow=false,bg=white]
 \setbeamertemplate{frametitle}[default][colsep=-2bp,rounded=false,shadow=false,center]
 
 \setbeamertemplate{headline}{}
@@ -997,7 +995,8 @@
     \url{http://www.math.ias.edu/~mshulman/hottseminar2012/01intro.pdf}
     \url{http://www.math.ias.edu/~mshulman/hottminicourse2012/04induction.pdf}
     \url{https://coq.inria.fr/files/coq5-slides-spitters.pdf}
-    \url{https://www.andrew.cmu.edu/user/awodey/hott/CMUslides.pdf}\par}
+    \url{https://www.andrew.cmu.edu/user/awodey/hott/CMUslides.pdf}
+    \url{http://home.sandiego.edu/~shulman/papers/hott-grothendieck.pdf}\par}
 
     \item An application unrelated to homotopy theory
 
@@ -1028,7 +1027,7 @@ Better explain next time or in the slides:
   size is not a homotopy invariant. The size of a *set* is well-defined (see
   chapter on cardinals).
 
-* Explain that be "=", we really mean equality. Explain that homotopic paths
+* Explain that by "=", we really mean equality. Explain that homotopic paths
   really are *the same* in HoTT.
 
 * Explain term constructors.
@@ -1045,7 +1044,7 @@ Better explain next time or in the slides:
 * Explain in more detail how identity witnesses can be composed, inverted, and
   so on.
 
-* Maybe: Think about how type families really a fibrations
+* Maybe: Think about how type families really are fibrations
   (path-lifting property with respect to *any* other type, not just 1).
 
 * Examples for dependent sums: algebraic structures (monoids, ...)
