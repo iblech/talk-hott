@@ -42,6 +42,7 @@
 \newcommand{\LEM}{\mathsf{LEM}}
 \newcommand{\UIP}{\mathsf{UIP}}
 \newcommand{\fib}{\mathsf{fib}}
+\newcommand{\List}{\mathsf{List}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\defeqv}{\vcentcolon\equiv}
 \newcommand{\ct}{%
@@ -271,7 +272,7 @@
   \end{itemize}
 
   \transfade<2>[duration=40]
-  \visible<2>{}%\img{0.1}{awesome}{}}
+  \visible<2>{\img{0.1}{awesome}{}}
   % http://1.bp.blogspot.com/-cPQyFx7EvCc/UxVEm6Td29I/AAAAAAAAfBg/HZ1AwI2re9Q/s1600/unikitty.png
 }
 
@@ -979,9 +980,76 @@
 }
 
 
+\subsection{What are applications?}
+
+\frame[t]{\frametitle{What are applications?}
+  Homotopy type theory \hil{subsumes all of classical mathematics}, by
+  using the fragment of discrete types.
+
+  The following subjects have received special treatment:
+
+  \begin{itemize}
+  \item Homotopy theory (duh)
+  \item Category theory
+  \item Data type theory
+  \item Your subject here!
+  \end{itemize}
+
+  Also, HoTT can be used as the \hil{internal language} of
+  $(\infty,1)$-toposes.
+}
+
+\note{
+  There is also lots of activity in type theory, $(\infty,1)$-category theory,
+  the theory of simplicial and cubical sets, computer-aided reasoning, \ldots
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying In homotopy type theory, isomorphic objects of categories \emph{are
+    equal}.
+    \item Like in classical category theory, any fully faithful and essentially
+    surjective functor is an equivalence of categories. Unlike in the classical
+    approach, this is proven by a simple appeal to the axiom (really theorem)
+    of \emph{unique choice}.
+    \item Equivalent categories are equal.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying ``Recall'' that data types can be modeled as initial algebras for
+    \emph{polynomial functors}.
+    \item For instance, the type~$\List(X)$ of lists of type of~$X$ is the
+    initial algebra for the functor
+    \[ {?} \longmapsto 1 + X \times {?}. \]
+    \item Formally differentiating the fixed-point equation $\List(X) = 1 + X
+    \times \List(X)$ gives
+    \[ \partial \List(X) = \List(X) + X \times \partial\List(X). \]
+    Formally solving this equation gives
+    \[ \partial \List(X) = \List(X) \times \List(X). \]
+    \item This data type is the \emph{zipper for lists}, i.\,e.\@ the type of
+    \emph{one-hole contexts} of lists.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying $\partial X^n = n X^{n-1}$: This makes sense.
+    \item What's the antiderivative of~$X^n$? What should $\frac{1}{n+1}
+    X^{n+1}$ be?
+    \item The type of \emph{cycles} of length $n+1$!
+    \item Unfortunately, this type can not be modeled in the standard approach.
+    \item It can in homotopy type theory, by simply relaxing a part of the
+    definition of polynomial functors (not shown here) to no longer restrict to
+    \emph{sets}, but to allow arbitrary \emph{types}.
+  \end{itemize}
+}
+
+
 \backupstart
 
-%\againframe<1-2>{awesome}
+\againframe<1-2>{awesome}
 
 \section{References}
 
@@ -1064,7 +1132,7 @@ Plan for part two:
     Explain that the "good old sets" are still there, if you need them.
   * Homotopy theory. Already discussed that.
     Note that one has to have some internal description of spaces which one
-    want to study.
+    want to study. Briefly mention models here.
   * String theory: Urs Schreiber, Mike Shulman.
     https://golem.ph.utexas.edu/category/2012/05/what_is_homotopy_type_theory_g.html
   * Category theory: Isomorphic objects are equal, fully faithful and
