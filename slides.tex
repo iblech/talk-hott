@@ -1012,58 +1012,18 @@
     \item hott-amateurs mailing list
   \end{itemize}
 
-  \floatbox{-260}{60}{\includegraphics[scale=0.5]{hott-book}}
+  \floatbox{-260}{55}{\includegraphics[scale=0.5]{hott-book}}
 }
 
 \backupend
 
 \end{document}
 
-Better explain next time or in the slides:
-
-* How to use HoTT for spaces which are externally defined, i.e. not given
-  as an inductive type, but given as an ordinary manifold (say).
-
-* How to use HoTT for subjects which have not yet received the HoTT treatment.
-
-* Explain the status of non-continuous functions.
-  Explain that the "good old sets" are still there, if you need them.
-  But also explain that higher groupoid structures are there, if you need those.
-
-* Explain that by "=", we really mean equality. Explain that homotopic paths
-  really are *the same* in HoTT.
-
-* Give examples outside of homotopy theory. (!)
-
-* Concisely explain that there are three ways to read a type:
-  as a type, in a logical way, in a geometric/continuous/homotopic way.
-
-* Explain how to define connectedness.
-
-* Maybe: Explain how to prove (x = y) --> (f(x) = f(y)).
-
-* Explain in more detail how identity witnesses can be composed, inverted, and
-  so on.
-
-* Maybe: Think about how type families really are fibrations
-  (path-lifting property with respect to *any* other type, not just 1).
-
-* Examples for dependent sums: algebraic structures (monoids, ...)
-
-* Everday example for dependent product: sections of vector bundles.
-
-* Briefly show table of known homotopy groups of the spheres (for giving
-  context to non-geometers).
-
-* Emphasize that higher groupoidal structure is there when you need it.
-  See https://golem.ph.utexas.edu/category/2012/05/what_is_homotopy_type_theory_g.html.
-
-* Emphasize use of HoTT as an internal language.
-
-
 Plan for part two:
 
 * Recap types and values.
+  * Examples for dependent sums: algebraic structures (monoids, ...)
+  * Everday example for dependent product: sections of vector bundles.
 
 * Show rules for product types.
 
@@ -1077,4 +1037,39 @@ Plan for part two:
     because it's not clear how to regard nontrivial identity types.
   * But for sets, it does and we have the usual theory of cardinal numbers.
 
-* ...
+* Explain that by "=", we really mean equality.
+  Discuss composition of paths and path induction.
+  Give homotopy-theoretic justification for path induction.
+  Explain how to prove (x = y) --> (f(x) = f(y)).
+
+* Recap the definition of the circle and other spaces.
+  Carefully explain how higher paths which are not specified in an inductive
+  definition come into existence.
+
+* Explain how to use inductive definitions: by their induced principle.
+  So explain circle induction. Give geometric justification.
+
+* Explain truncation of types. With this, give the definition of the
+  fundamental group. Do not yet prove that pi_1(S^1) ~ Z. Briefly show the
+  table of known homotopy groups. Discuss how to formalize connectedness.
+
+* Finally, state the univalence axiom. Discuss consequences:
+  * Isomorphic groups/vector spaces/... are really equal.
+  * Any construction and any statement respects equivalence.
+  Also mention that no computational interpretation is known yet.
+
+* Applications:
+  * Everything of mathematics. You don't have to use the higher features.
+    Just encode everything as 0-types. Explain the status of non-continuous functions.
+    Explain that the "good old sets" are still there, if you need them.
+  * Homotopy theory. Already discussed that.
+    Note that one has to have some internal description of spaces which one
+    want to study.
+  * String theory: Urs Schreiber, Mike Shulman.
+    https://golem.ph.utexas.edu/category/2012/05/what_is_homotopy_type_theory_g.html
+  * Category theory: Isomorphic objects are equal, fully faithful and
+    essentially surjective functors are equivalences, equivalent categories are
+    equal.
+  * Data type theory: Have more antiderivatives of data types.
+  * HoTT as internal language
+  * Your application here!
