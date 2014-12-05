@@ -20,6 +20,7 @@
 
 \renewcommand{\U}{\mathcal{U}}
 \newcommand{\NN}{\mathbb{N}}
+\newcommand{\id}{\mathrm{id}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\Id}{\mathrm{Id}}
@@ -747,6 +748,44 @@
 
 \section{Further topics}
 
+\subsection{What is path induction?}
+
+\frame[t]{\frametitle{What is path induction?}
+  \hil{(Based) path induction} states: Given
+  \begin{itemize}
+    \item a value~$a$ of a type $A$,
+    \item a type family~$C : \prod_{x:A} ((a = x) \to \U)$, and
+    \item a value~$c : C(a,\refl_a)$,
+  \end{itemize}
+  there is a function
+  \[ f : \prod_{x:A} \prod_{p:(a=x)} C(x,p) \]
+  such that~$f(a,\refl_a) \equiv c$.
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying In particular, in proving that a proposition depending on a value~$x$
+    and an identity witness~$p : (a = x)$ holds for all thoses values and
+    witnesses, it suffices to prove it for the special value~$a$ and the
+    canonical identity witness~$\refl_a$.
+
+    \item Note that this does not mean that any value of~$(a = x)$ is equal
+    to~$\refl_a$! Indeed, this claim is not even well-typed.
+
+    \item The induction principle only makes a statement about the whole \emph{type
+    family} of the~$(a = x)$'s with~$x$ varying, not about individual types.
+
+    \item Compare with the classical based path space: In it, any element (any
+    path starting at~$x$) is connected to the trivial path at~$x$. But this
+    does not mean that any path is homotopic to the trivial path.
+  \end{itemize}
+}
+
+\note{
+  More explanation, XXX.
+}
+
+
 \subsection{What is type truncation?}
 
 \frame[t]{\frametitle{What is type truncation?}
@@ -779,12 +818,49 @@
     the world of $n$-types, i.\,e.\@ its $n$-th \emph{Postnikov section}.
     \item $\|X\|_0$ is the set of connected components of $X$.
   \end{itemize}
+}
 
+\note{
   \begin{itemize}
-    \item\justifying By circle induction, an equivalent definition is
+    \item\justifying A type~$X$ is \emph{connected} if and only if
+    \[ \sum_{x:X} \prod_{y:X} \|x = y\|_{-1}. \]
+    \item In logical terms, this is read as follows: A type~$X$ is connected if
+    and only if there is some value~$x:X$ such that for any value~$y:X$, it is
+    \emph{merely true} that~$x = y$.
+    \item In geometric terms, it reads: A space~$X$ is connected if and only if
+    there is some point~$x:X$ such that for any point~$y:Y$, there is a path
+    connecting~$x$ to~$y$, and this path does not need to depend continuously
+    on~$y$.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Out of a value of~$\|X\|_{-1}$, we cannot extract a
+    witness of~$X$, i.\,e.\@ there is no function of type
+    \[ \prod_{X:\U} (\|X\|_{-1} \longrightarrow X). \]
+    \item Intuitively, if~$\|X\|_{-1}$ is inhabited, then we know that there
+    must be some witnesses of~$X$, but generally, we cannot choose a specific
+    such witness: By our general principles, this witness would depend in a
+    continuous way on~$X$, but this is too much to ask for.
+    \item However, by the universal property of~$(-1)$-truncation, to prove an
+    implication of the form $\|X\|_{-1} \longrightarrow Y$ where~$Y$ is itself
+    a mere proposition, it suffices to prove the a priori weaker statement $X
+    \longrightarrow Y$. Intuitively, in this case we \emph{can} make the
+    choice, because the produced value of~$Y$ does not depend on it.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying By circle induction, an equivalent definition of the
+    fundamental group is
     \[ \pi_1(X,x_0) \defeqv \| (S^1,\base) \to (X,x_0) \|_0, \]
     i.\,e.\@ the set of connected components of the space of
     base\-point-preserving functions $S^1 \to X$.
+%   \item This is one of many places where we can clearly see that homotopy
+%   type theory provides a synthetic treatment of \emph{homotopy types}
+%   (instead of topological spaces).
   \end{itemize}
 }
 
@@ -863,13 +939,49 @@
 
 \note{
   \begin{itemize}
-    \item\justifying By the univalence axioms, equivalent types \emph{really are} equal.
+    \item\justifying Read in logical terms, a function $f : X \to Y$ is an
+    equivalence if and only if for any~$y:Y$, the fiber~$\fib_f(y)$ is a
+    singleton, i.\,e.\@ if and only if~$f$ is bijective.
+    \item One can prove that~$\IsMereProp(\IsEquiv(f))$.
+    \item A value of~$(X \simeq Y)$ is a pair consisting of a function~$f : X
+    \to Y$ together with a proof that~$f$ is an equivalence.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying Let~$X$ and~$Y$ be types, i.\,e.\@ values of the
+    universe~$\U$. Then there is the identity type~$(X = Y)$. What does it
+    look like?
+    \item Without the univalence axiom, this question does not have an answer;
+    the special behaviour of~$(X = Y)$ is left unspecified by the remaining rules
+    of homotopy type theory.
+    \item With the univalence axiom, the question has a clear answer: The
+    type~$(X = Y)$ of identity witnesses is equivalent to the type~$(X \simeq
+    Y)$ of equivalences.
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying The canonical function~$(X = Y) \to (X \simeq Y)$
+    appearing in the univalence axiom is constructed by path induction. It maps
+    the canonical reflexivity witness~$\refl_X$ to the trivial
+    equivalence~$\id_X : X \to X$ (together with a proof that~$\id_X$ is an
+    equivalence).
+  \end{itemize}
+}
+
+\note{
+  \begin{itemize}
+    \item\justifying By the univalence axiom, equivalent types \emph{really are} equal.
     \item It implies that isomorphic groups, vector spaces, \ldots\@ are equal.
     \item Thus the widespread practice of \emph{pretending} that isomorphic
     structures are equal is rigorously formalized.
-    \item The univalence axiom guarantees that \emph{any construction respects
-    equivalence}.
-    \item Most results require the univalence axiom.
+    \item Because any construction has to respect equality, the univalence
+    axiom guarantees that \emph{any construction respects equivalence}.
+    \item Most nontrivial mathematical results in homotopy type theory require
+    the univalence axiom.
   \end{itemize}
 }
 
@@ -1168,13 +1280,5 @@ To do:
 * Include a formal statement of path induction.
 
 * Include proofs of functoriality, associativity of path composition, ...
-
-* Discuss connectedness.
-
-* Explain hott-amateurs.
-
-* Formulate the univalence axiom more precisely.
-
-* Explain IsEquiv in logical terms.
 
 * Write down definition of the type of monoids. Also, sections of bundles.
