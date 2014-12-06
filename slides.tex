@@ -33,6 +33,8 @@
 \newcommand{\seg}{\mathsf{seg}}
 \newcommand{\base}{\mathsf{base}}
 \newcommand{\lloop}{\mathsf{loop}}
+\newcommand{\ua}{\mathsf{ua}}
+\newcommand{\code}{\mathsf{code}}
 \newcommand{\surf}{\mathsf{surf}}
 \newcommand{\merid}{\mathsf{merid}}
 \newcommand{\N}{\mathsf{N}}
@@ -1286,6 +1288,50 @@
   \par
 }
 
+
+\appendix
+\section{The fundamental group of the circle}
+
+\frame[t]{\frametitle{How can we calculate~$\pi_1(S^1)$?}
+  By circle induction, we define a type family~$\code$ which will turn out to
+  be the universal covering space (think~$\RR \to S^1$):
+  \[ \code : S^1 \to \U,\ \base \mapsto \ZZ,\ \lloop \mapsto \ua(\succ). \]
+  Here,~$\ua(\succ) : (\ZZ = \ZZ)$ is the identity witness corresponding to the
+  equivalence~$\succ : \ZZ \to \ZZ$.
+}
+
+\note{
+  \justifying
+  Thought of a fibration,~$\code$ looks like this: Its fiber over~$\base$
+  is~$\ZZ$. A number~$v : \code(\base)$ is transported along~$\lloop$ to~$v +
+  1$.
+}
+
+\note{
+  \justifying
+  Define:
+  \[ \begin{array}{@{}ccrcll@{}}
+    f &:& \ZZ &\longrightarrow& (\base = \base), & n \longmapsto \lloop^n \\[0.4em]
+    g &:& (\base = \base) &\longrightarrow& \ZZ, & p \longmapsto \code(p)(0)
+  \end{array} \]
+
+  Verify~$g \circ f = \id$ by induction. But there is no principle which would
+  help in proving that~$f \circ g = \id$. For this, need to \emph{generalize};
+  define by circle induction on~$x : S^1$
+  \[ \begin{array}{@{}ccrcl@{}}
+    f_x &:& \code(x) &\longrightarrow& (\base = x) \\[0.4em]
+    g_x &:& (\base = x) &\longrightarrow& \code(x)
+  \end{array} \]
+  such that~$f_\base \equiv f$ and~$g_\base \equiv g$.
+
+  Then~$\prod_{x:S^1} (f_x \circ g_x = \id)$ can be proven by path induction.
+
+  In particular, we obtain~$(\base = \base) \simeq \ZZ$. Taking
+  the~$0$-trun\-ca\-tion, we obtain
+  \[ \pi_1(S^1,\base) \defeqv \|(\base = \base)\|_0 \simeq
+    \|\ZZ\|_0 \simeq \ZZ. \]
+}
+
 \backupend
 
 \end{document}
@@ -1354,5 +1400,3 @@ To do:
 
 * Stress applicability of HoTT better. Also mention the HoTT approach
   to field theory of Urs.
-
-* Include the proof of pi_1(S^1) ~ Z.
