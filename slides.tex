@@ -26,7 +26,9 @@
 \newcommand{\Id}{\mathrm{Id}}
 \newcommand{\fst}{\mathsf{fst}}
 \newcommand{\snd}{\mathsf{snd}}
+\newcommand{\inv}{\mathsf{inv}}
 \newcommand{\refl}{\mathsf{refl}}
+\newcommand{\ap}{\mathsf{ap}}
 \renewcommand{\succ}{\mathsf{succ}}
 \newcommand{\seg}{\mathsf{seg}}
 \newcommand{\base}{\mathsf{base}}
@@ -94,7 +96,7 @@
 
 \newcommand{\hil}[1]{{\usebeamercolor[fg]{item}{\textbf{#1}}}}
 
-\newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\\small#3\end{center}}
+\newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\\scriptsize#3\end{center}}
 %\newcommand{\imageslide}[3]{\frame{\frametitle{#1}\img{#2}{#3}}}
 
 \IfSubStr{\jobname}{\detokenize{nonotes}}{
@@ -782,7 +784,59 @@
 }
 
 \note{
-  More explanation, XXX.
+  \justifying
+  As an example, let's define the path reversal function
+  \[ \inv : \prod_{x:A} ((a = x) \longrightarrow (x = a)), \]
+  where~$a:A$ is a fixed value, by path induction. For this, we define the type
+  family
+  \[ C \defeqv ((x:A, p : (a = x)) \mapsto (x = a)) : \prod_{x:A} ((a = x) \to \U) \]
+  and note that we have the value
+  \[ c \defeqv \refl_a : C(a,\refl_a). \]
+  Therefore, by path induction, we obtain a function
+  \[ f : \prod_{x:A} \prod_{p:(a=x)} (x=a). \]
+  This is~$\inv$.
+}
+
+\note{
+  \begin{itemize}
+  \item\justifying
+  Working informally, we would write the construction more concisely:
+
+  ``Let~$p:(a=x)$ be given, we want to construct~$\inv(p) : (x=a)$.
+  By path induction, we may assume that~$p \equiv \refl_a$. In this case, we
+  define~$\inv(p)$ as~$\refl_a$.''
+
+  \item Here is how we construct the path composition function:
+
+  ``Let~$p:(a=b)$ and~$q:(b=c)$ be given. By path induction, we may assume
+  that~$p \equiv \refl_a$. Again by path induction, we may assume that~$q
+  \equiv \refl_a$. In this case, we define~$p \ct q$ as~$\refl_a$.''
+
+  \item Here is how to construct the function~$\ap_g : (x = y) \to (g(x) = g(y))$, if~$g$ is
+  some given function:
+
+  ``By path induction, it suffices to define~$\ap_g(p)$ when~$p$ is~$\refl_x$.
+  In this case, we declare~$\ap_g(p)$ to be~$\refl_{g(x)}$.''
+  \end{itemize}
+}
+
+\note{
+  \justifying
+  Path induction does not allow to replace any paths whatsoever by the
+  canonical reflexivity witnesses. For instance, the following ``proof'' of
+  \[ p \ct q = q \ct p \]
+  for all paths~$p$ and~$q$ is bogus:
+
+  ``By path induction, we may assume that~$p$ and~$q$ are~$\refl_a$. In this
+  case,~$p \ct q$ and~$q \ct p$ both equal~$\refl_a \ct \refl_a = \refl_a$.''
+
+  Indeed, the claimed statement is not even well-typed:
+  \[ \prod_{x,y,z:X} \prod_{p:(x=y)} \prod_{q:(y=z)}
+    (p \ct q = q \ct p). \]
+  The composition~$q \ct p$ is not defined. Weakening the statement to
+  \[ \prod_{x:X} \prod_{p:(x=x)} \prod_{q:(x=x)} (p \ct q = q \ct p) \]
+  does not help either, since in this statement there is no free endpoint,
+  so path induction does not apply.
 }
 
 
@@ -1276,9 +1330,5 @@ To do:
   to field theory of Urs.
 
 * Include the proof of pi_1(S^1) ~ Z.
-
-* Include a formal statement of path induction.
-
-* Include proofs of functoriality, associativity of path composition, ...
 
 * Write down definition of the type of monoids. Also, sections of bundles.
