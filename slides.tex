@@ -351,10 +351,24 @@
 }
 
 \note{
-  In the special case that~$B(x) \defeqv B$ does not depend on $x$,
-  \[ \sum_{x:A} B \equiv A \times B \quad\text{and}\quad
-    \prod_{x:A} B \equiv (A \to B). \]
+  \begin{itemize}
+    \item\justifying In the special case that~$B(x) \defeqv B$ does not depend on $x$, the
+    \emph{dependent sum} and the \emph{dependent product} simplify to
+    \emph{cartesian product} and \emph{function type}, respectively:
+    \[ \sum_{x:A} B \equiv A \times B \quad\text{and}\quad
+      \prod_{x:A} B \equiv (A \to B). \]
 
+    \item Dependent sums and products are very common in mathematics, even if
+    they are not explicitly referred to by name. For instance, a tangential
+    vector field on a manifold~$M$ is a value of the dependent
+    product~$\prod_{x:M} T_xM$, and the total space of the tangent bundle
+    is~$\sum_{x:M} T_xM$. Dependent sums also occur in probability theory, when
+    constructing sample spaces for multi-stage experiments.
+  \end{itemize}
+}
+
+\note{
+  \justifying
   The rules governing product types are the following. See the HoTT book for
   explanation.
   \medskip
@@ -421,6 +435,18 @@
   But at the same time, they can be read in geometric/homotopy-theoretic terms;
   see below.
   \par
+}
+
+\note{
+  The type of monoid structures on a type~$X$ is
+  \begin{multline*}
+    \sum_{\circ:X \times X \to X}
+    \sum_{e:X}
+    \Biggl(
+      \Bigl(\prod_{x:X} (e \circ x = x)\Bigr) \times
+      \Bigl(\prod_{x:X} (x \circ e = x)\Bigr) \times \\
+      \Bigl(\prod_{x,y,z:X} \bigl((x \circ y) \circ z = x \circ (y \circ z)\bigr)\Bigr)\Biggr).
+  \end{multline*}
 }
 
 \note{
@@ -566,7 +592,7 @@
 }
 
 \note{
-  For doing homotopy theory in HoTT, the following are \emph{not} needed:
+  Look ma! For doing homotopy theory in HoTT, the following are \emph{not} needed:
   \begin{itemize}
     \item open sets
     \item construction of topologies on equivalence classes of paths
@@ -1330,5 +1356,3 @@ To do:
   to field theory of Urs.
 
 * Include the proof of pi_1(S^1) ~ Z.
-
-* Write down definition of the type of monoids. Also, sections of bundles.
