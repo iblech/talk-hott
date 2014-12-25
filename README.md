@@ -1,4 +1,4 @@
 talk-hott
 =========
 
-Introductory talk to homotopy type theory
+Introductory talk on homotopy type theory
